@@ -1,0 +1,97 @@
+.login {
+  background-color: #e2e2e5;
+}
+
+.loginWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.loginLeft {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 80px 40px;
+}
+
+.loginTextMain {
+  font-size: 50px;
+  font-weight: 900;
+  margin-bottom: 50px;
+}
+
+.loginTextSub {
+  font-size: 18px;
+  font-weight: 500;
+  opacity: 0.6;
+}
+
+.loginRight {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 50px 40px;
+  background-color: #474a59;
+  color: rgb(192, 192, 192);
+  -webkit-box-shadow: 0px 0px 26px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 26px 3px rgba(0, 0, 0, 0.5);
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginFormInput {
+  margin-bottom: 20px;
+  height: 40px;
+  background-color: #474a59;
+  border: none;
+  color: white;
+  width: 250px;
+  border-bottom: 2px solid rgb(223, 58, 127);
+}
+
+::placeholder {
+  color: #e2e2e5;
+}
+
+.loginFormInput:focus {
+  outline: none;
+}
+
+.loginFormBtn {
+  color: rgb(192, 192, 192);
+  border: 3px solid rgb(228, 37, 78);
+  background-color: #474a59;
+  border-radius: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px 8px;
+  font-size: 18px;
+  cursor: pointer;
+  outline: none;
+}
+
+.loginFormBtn:focus {
+  outline: none;
+}
+
+.loginFormBtn:hover {
+  background-color: #383a42;
+}
+
+.loginFormBtn:active {
+  transform: translateY(-2px);
+}
+
+.loginCreateAccount {
+  margin-top: 10px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
