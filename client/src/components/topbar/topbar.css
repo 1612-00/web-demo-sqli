@@ -1,0 +1,95 @@
+.topbar {
+}
+
+.topbarWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #474a59;
+  color: white;
+  -webkit-box-shadow: 1px 8px 9px -5px rgba(0, 0, 0, 0.34);
+  box-shadow: 1px 8px 9px -5px rgba(0, 0, 0, 0.34);
+}
+
+.topbarLeft {
+}
+
+.topbarLogo {
+  font-size: 24px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.topbarCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.topbarSearchIcon {
+  font-size: 24px !important;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.topbarSearchInput {
+  width: 500px;
+  height: 35px;
+  border: 2px solid rgb(223, 58, 127);
+  border-radius: 30px;
+  background-color: #474a59;
+  outline: none;
+  padding-left: 20px;
+  font-size: 18px;
+  color: white;
+  /* animation-name: searchInputAnimNone;
+  animation-duration: 1s;
+  animation-delay: 0; */
+}
+
+.topbarSearchInput:focus {
+  outline: none;
+  /* animation-name: searchInputAnimFocus;
+  animation-duration: 1s;
+  animation-delay: 0; */
+  width: 500px;
+}
+
+.topbarRight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.topbarLogoutIcon {
+  margin-right: 10px;
+}
+
+.topbarLogoutIcon:hover {
+  transition: 0.25s ease-in-out;
+  transform: translateX(3px);
+}
+
+.topbarUsername:hover {
+  border-bottom: 1px solid white;
+}
+
+@keyframes searchInputAnimFocus {
+  0% {
+    width: 200px;
+  }
+  100% {
+    width: 500px;
+  }
+}
+
+@keyframes searchInputAnimNone {
+  0% {
+    width: 500px;
+  }
+  100% {
+    width: 200px;
+  }
+}

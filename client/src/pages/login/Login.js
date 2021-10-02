@@ -1,67 +1,117 @@
 import "./login.css";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import Register from "../register/Register";
+import { AuthContext } from "./../../contexts/AuthContext";
+import { Box } from "@mui/system";
+import { CircularProgress } from "@mui/material";
+import { Redirect } from "react-router";
+import NotificationDialog from "../../components/notificationDialog/NotificationDialog";
 
 const Login = () => {
-  const email = useRef();
+  const username = useRef();
   const password = useRef();
 
-  const [open, setOpen] = useState("true");
+  // Context
+  const {
+    state: { isLoading, isAuthenticated },
+    loginUser,
+  } = useContext(AuthContext);
 
-  const handleCloseModal = () => {
+  // Handle register
+  const [open, setOpen] = useState(false);
+  const [openErrDialog, setOpenErrDialog] = useState(false);
+
+  const handleCloseRegisterModal = () => {
     setOpen(false);
-  }
-
-  const handleOpenModal = () => {
-    setOpen(true);
-  }
-
-  const handleSubmitForm = (event) => {
-    event.preventDefault();
-
-    console.log(email.current.value);
-    console.log(password.current.value);
   };
 
-  return (
-    <div className="login">
-      <div className="loginWrapper">
-        <div className="loginLeft">
-          <span className="loginTextMain">Login</span>
-          <span className="loginTextSub">Login to use more utilities</span>
-        </div>
-        <div className="loginRight">
-          <form className="loginForm" onSubmit={handleSubmitForm}>
-            <input
-              type="email"
-              className="loginFormInput"
-              placeholder="Email"
-              required
-              ref={email}
+  const handleOpenRegisterModal = () => {
+    setOpen(true);
+  };
+
+  const handleOpenErrModal = () => {
+    setOpenErrDialog(true);
+  };
+
+  const handleCloseErrModal = () => {
+    setOpenErrDialog(false);
+  };
+
+  const handleSubmitForm = async (event) => {
+    event.preventDefault();
+
+    const user = {
+      username: username.current.value,
+      password: password.current.value,
+    };
+
+    try {
+      const loginData = await loginUser(user);
+      if (!loginData.success) {
+        console.log("Login failed");
+        handleOpenErrModal();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <Box className="spinner">
+        <CircularProgress />
+      </Box>
+    );
+  } else if (isAuthenticated) {
+    return <Redirect to="/" />;
+  } else
+    return (
+      <div className="login">
+        <div className="loginWrapper">
+          <div className="loginLeft">
+            <span className="loginTextMain">Login</span>
+            <span className="loginTextSub">Login to use more utilities</span>
+          </div>
+          <div className="loginRight">
+            <form className="loginForm" onSubmit={handleSubmitForm}>
+              <input
+                type="text"
+                className="loginFormInput"
+                placeholder="Username"
+                required
+                ref={username}
+              />
+              <input
+                type="password"
+                className="loginFormInput"
+                placeholder="Password"
+                minLength="6"
+                required
+                ref={password}
+              />
+              <button type="submit" className="loginFormBtn">
+                Submit
+              </button>
+            </form>
+            <div
+              className="loginCreateAccount"
+              onClick={handleOpenRegisterModal}
+            >
+              <span className="loginCreateAccountText">
+                Create an account ?
+              </span>
+            </div>
+            <Register open={open} handleClose={handleCloseRegisterModal} />
+            <NotificationDialog
+              status="error"
+              open={openErrDialog}
+              handleClose={handleCloseErrModal}
+              content="Wrong account or password"
             />
-            <input
-              type="password"
-              className="loginFormInput"
-              placeholder="Password"
-              minLength="6"
-              required
-              ref={password}
-            />
-            <button type="submit" className="loginFormBtn">
-              Submit
-            </button>
-          </form>
-          <span
-            className="loginCreateAccount"
-            onClick={handleOpenModal}
-          >
-            Create an account ?
-          </span>
-          <Register open={open} handleClose={handleCloseModal} />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default Login;

@@ -1,0 +1,54 @@
+.modalAddProductTitle {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.modalAddProductForm {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+}
+
+.modalAddProductInput {
+  width: 500px;
+  margin: 5px 0;
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid gray;
+  font-size: 18px;
+  padding-left: 20px;
+}
+
+.modalAddProductInput:focus {
+  outline: none;
+}
+
+.inputFirstName {
+  margin-right: 10px;
+}
+
+.modalAddProductBtn {
+  float: left;
+  width: 40%;
+  height: 40px;
+  margin-top: 20px;
+  margin-left: 30%;
+  background-color: white;
+  border: 2px solid red;
+  border-radius: 30px;
+  font-size: 17px;
+  outline: none;
+  cursor: pointer;
+}
+
+.modalAddProductBtn:focus {
+  outline: none;
+}
+
+.modalAddProductBtn:hover {
+  background-color: #eee;
+}
+
+.modalAddProductBtn:active {
+  transform: translateY(-2px);
+}

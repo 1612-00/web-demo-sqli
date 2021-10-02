@@ -1,26 +1,48 @@
 import "./register.css";
-import { useRef } from "react";
-import {
-  Dialog,
-  DialogContent,
-} from "@material-ui/core";
+import { useContext, useRef, useState } from "react";
+import { AuthContext } from "./../../contexts/AuthContext";
+import { Dialog, DialogContent } from "@material-ui/core";
+import NotificationDialog from "./../../components/notificationDialog/NotificationDialog";
 
 const Register = ({ open, handleClose }) => {
   const firstName = useRef();
   const lastName = useRef();
-  const email = useRef();
+  const username = useRef();
   const password = useRef();
 
-  const handleSignUp = (event) => {
+  const [openErrDialog, setOpenErrDialog] = useState(false);
+
+  const handleOpenErrModal = () => {
+    setOpenErrDialog(true);
+  };
+
+  const handleCloseErrModal = () => {
+    setOpenErrDialog(false);
+  };
+
+  // Context
+  const { registerUser } = useContext(AuthContext);
+
+  const handleSignUp = async (event) => {
     event.preventDefault();
-    handleClose();
+
     const user = {
-      firstName: firstName.current.value,
-      lastName: lastName.current.value,
-      email: email.current.value,
+      firstName: firstName.current.value.trim(),
+      lastName: lastName.current.value.trim(),
+      username: username.current.value.trim(),
       password: password.current.value,
     };
-    console.log(user);
+
+    try {
+      const registerData = await registerUser(user);
+      if (!registerData.success) {
+        handleOpenErrModal();
+      } else {
+        handleClose();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -49,10 +71,10 @@ const Register = ({ open, handleClose }) => {
             />
           </div>
           <input
-            type="email"
+            type="text"
             className="registerInput"
-            placeholder="Email"
-            ref={email}
+            placeholder="username"
+            ref={username}
             required
           />
           <input
@@ -67,6 +89,12 @@ const Register = ({ open, handleClose }) => {
             Sign up
           </button>
         </form>
+        <NotificationDialog
+          status="error"
+          open={openErrDialog}
+          handleClose={handleCloseErrModal}
+          content="Account registration failed"
+        />
       </DialogContent>
     </Dialog>
   );

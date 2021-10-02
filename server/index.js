@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors')
 const app = express();
 
 const dbConfig = require("./db.config");
@@ -13,6 +14,7 @@ connection.connect(function (err) {
     : console.log("DB connection on port " + dbConfig.PORT);
 });
 
+app.use(cors());
 app.use(express.json());
 
 app.use("/api/user", userRouter);

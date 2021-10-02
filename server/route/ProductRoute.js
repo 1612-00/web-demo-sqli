@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const db = require("../db");
+const verifyToken = require("../middleware/verifyToken");
 
 // constructor
 const Product = function (product) {
@@ -11,11 +12,11 @@ const Product = function (product) {
 };
 
 // Create product
-router.post("/", (req, res) => {
-  const { name, amount, price, des, img } = req.body;
+router.post("/", verifyToken, (req, res) => {
+  const { name, amount, price, des } = req.body;
 
   try {
-    const sqlCreateProduct = `INSERT INTO product SET name = '${name}', amount = '${amount}', price = '${price}', des = '${des}', img = '${img}'`;
+    const sqlCreateProduct = `INSERT INTO product SET name = '${name}', amount = '${amount}', price = '${price}', des = '${des}'`;
 
     db.query(sqlCreateProduct, (error, results) => {
       if (error) {
@@ -27,7 +28,7 @@ router.post("/", (req, res) => {
       res.status(200).json({
         success: true,
         message: "Created product successfully",
-        results,
+        product: results,
       });
     });
   } catch (error) {
@@ -38,11 +39,41 @@ router.post("/", (req, res) => {
 });
 
 // Find product by name
-router.get("/:name", (req, res) => {
+// router.get("/:name", verifyToken, (req, res) => {
+//   try {
+//     console.log(req.params.name);
+//     const sqlGetByName = `SELECT * FROM product WHERE name LIKE "%${req.params.name}%"`;
+
+//     db.query(sqlGetByName, (error, results) => {
+//       // console.log(sqlGetByName);
+//       if (error) {
+//         return res
+//           .status(400)
+//           .json({ success: false, message: "error", error });
+//       }
+
+//       res.status(200).json({
+//         success: true,
+//         message: "Find product successfully",
+//         products: results,
+//       });
+//     });
+//   } catch (error) {
+//     return res
+//       .status(500)
+//       .json({ success: false, message: "Invalid server error", error });
+//   }
+// });
+
+router.post("/find/name", verifyToken, (req, res) => {
+  const { name } = req.body;
+
   try {
-    const sqlGetByName = `SELECT * FROM product WHERE name LIKE "%${req.params.name}%"`;
+    console.log(req.params.name);
+    const sqlGetByName = `SELECT * FROM product WHERE name LIKE '%${name}%'`;
 
     db.query(sqlGetByName, (error, results) => {
+      console.log(sqlGetByName);
       if (error) {
         return res
           .status(400)
@@ -52,7 +83,7 @@ router.get("/:name", (req, res) => {
       res.status(200).json({
         success: true,
         message: "Find product successfully",
-        results,
+        products: results,
       });
     });
   } catch (error) {
@@ -63,7 +94,7 @@ router.get("/:name", (req, res) => {
 });
 
 // Get All
-router.get("/", (req, res) => {
+router.get("/", verifyToken, (req, res) => {
   try {
     const sqlGetByName = `SELECT * FROM product`;
 
@@ -77,7 +108,7 @@ router.get("/", (req, res) => {
       res.status(200).json({
         success: true,
         message: "Find product successfully",
-        results,
+        products: results,
       });
     });
   } catch (error) {
@@ -88,7 +119,7 @@ router.get("/", (req, res) => {
 });
 
 // Update by Id
-router.post("/update/:productId", (req, res) => {
+router.post("/update/:productId", verifyToken, (req, res) => {
   const { name, amount, price, des, img } = req.body;
 
   try {
@@ -121,7 +152,7 @@ router.post("/update/:productId", (req, res) => {
 });
 
 // Remove product by id
-router.delete("/delete/:productId", (req, res) => {
+router.delete("/delete/:productId", verifyToken, (req, res) => {
   try {
     const sqlDelete = `DELETE FROM product WHERE id = '${req.params.productId}'`;
 
@@ -149,6 +180,6 @@ router.delete("/delete/:productId", (req, res) => {
       .status(500)
       .json({ success: false, message: "Invalid server error", error });
   }
-})
+});
 
 module.exports = router;
