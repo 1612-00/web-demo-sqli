@@ -2,9 +2,9 @@ POST http://localhost:4000/api/user/register
 Content-Type: application/json
 
 {
-  "firstName": "ducanh",
-  "lastName": "nguyen",
-  "username": "ducanh",
+  "firstName": "mongoo",
+  "lastName": "mongoo",
+  "username": "mongoo",
   "password": "123456"
 }
 
@@ -13,8 +13,8 @@ POST http://localhost:4000/api/user/login
 Content-Type: application/json
 
 {
-  "username": "ducanh",
-  "password": "123456"
+  "username": "mongoo",
+  "password": {"$ne":0}
 }
 
 ###
@@ -62,3 +62,26 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI3LCJpY
 ###
 DELETE http://localhost:4000/api/product/delete/3
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI3LCJpYXQiOjE2MzI4ODIwNzV9.cSTitCHiqrEpYP7kaBnih7W3ct6R7BKNlSE-2tCairU
+
+
+################################### MONGO DB #########################################
+
+POST http://localhost:4000/api/product
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTU4MTA3ZmM1Njc4MTYzNzBkMzVjNmYiLCJpYXQiOjE2MzMxNjE5NjN9.3HUa5u5sOW4tb8iubI8AWIezQQBp_QxApnxE_ZjmPMY
+
+{
+  "name": "product 1",
+  "amount": 18,
+  "price": 300000,
+  "des": "Description 1"
+}
+
+###
+GET http://localhost:4000/api/product
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTU4MTA3ZmM1Njc4MTYzNzBkMzVjNmYiLCJpYXQiOjE2MzMxNjE5NjN9.3HUa5u5sOW4tb8iubI8AWIezQQBp_QxApnxE_ZjmPMY
+
+
+###
+GET http://localhost:4000/api/product/getbyname/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTU4MTA3ZmM1Njc4MTYzNzBkMzVjNmYiLCJpYXQiOjE2MzMxNjE5NjN9.3HUa5u5sOW4tb8iubI8AWIezQQBp_QxApnxE_ZjmPMY

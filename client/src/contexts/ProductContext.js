@@ -29,11 +29,27 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
-  // Get product by name
+  // Get product by name use mysql
+  // const getProductByName = async (name) => {
+  //   try {
+  //     // const res = await axios.get(`${apiUrl}/product/${name}`);
+  //     const res = await axios.post(`${apiUrl}/product/find/name`, { name });
+  //     dispatch({
+  //       type: GET_PRODUCT_BY_NAME,
+  //       payload: {
+  //         listProduct: res.data.products,
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // Get product by name use mongooDB
   const getProductByName = async (name) => {
     try {
       // const res = await axios.get(`${apiUrl}/product/${name}`);
-      const res = await axios.post(`${apiUrl}/product/find/name`, { name });
+      const res = await axios.get(`${apiUrl}/product/getbyname/${name}`);
       dispatch({
         type: GET_PRODUCT_BY_NAME,
         payload: {

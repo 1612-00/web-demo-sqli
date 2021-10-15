@@ -32,7 +32,7 @@ const Home = () => {
       <Topbar />
       <div className="homeContent">
         {listProduct.map((product) => (
-          <Product key={product.id} product={product} />
+          <Product key={product._id} product={product} />
         ))}
       </div>
       <div className="homeAddProduct">
